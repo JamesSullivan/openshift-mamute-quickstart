@@ -18,7 +18,7 @@ git remote add upstream https://github.com/JamesSullivan/openshift-mamute-quicks
 git pull -s recursive -X theirs upstream master
 ```
 
-3. Read the .openshift/action_hooks/start file carefully and change as appropriate. Then push the code to OpenShift. 
+3. Read the .openshift/action_hooks/start file carefully and change as appropriate. Need to use a version of mamute-1.4.0.war that includes this pull request https://github.com/caelum/mamute/pull/224. Then push the code to OpenShift. 
 
 ```
 git push
