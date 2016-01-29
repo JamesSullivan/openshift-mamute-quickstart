@@ -1,0 +1,42 @@
+#!/bin/bash
+set -x
+cd $OPENSHIFT_DATA_DIR
+
+# Mamute set env
+JDBC_URL=jdbc:mysql://${OPENSHIFT_MYSQL_DB_HOST}/mamute_development
+USER=test
+PASSWORD="mysql"
+HOST=${OPENSHIFT_DIY_IP}
+JETTY_HOME=${OPENSHIFT_DATA_DIR}mamute
+
+export JDBC_URL USER PASSWORD JETTY_HOME HOST
+
+if [ -d ${OPENSHIFT_DATA_DIR}mamute ]
+then
+    # Java 1.8 set env
+    export PATH=$OPENSHIFT_DATA_DIR/jdk1.8.0_72/bin:$PATH
+    export JAVA_HOME=$OPENSHIFT_DATA_DIR/jdk1.8.0_72/
+
+	cd mamute
+	./run.sh
+    exit 0
+else
+    # Java 1.8 Installation and Configuration
+    cd $OPENSHIFT_DATA_DIR
+
+    wget --no-check-certificate --no-cookies --header "Cookie: oraclelicense=accept-securebackup-cookie" http://download.oracle.com/otn-pub/java/jdk/8u72-b15/jdk-8u72-linux-x64.tar.gz
+    tar -zxf jdk-8u72-linux-x64.tar.gz
+    export PATH=$OPENSHIFT_DATA_DIR/jdk1.8.0_72/bin:$PATH
+    export JAVA_HOME=$OPENSHIFT_DATA_DIR/jdk1.8.0_72/
+
+    cd $OPENSHIFT_DATA_DIR
+        mkdir -p mamute
+	cd mamute
+	wget https://www.dropbox.com/s/zzij4h4n8p37j0d/mamute-1.4.0.war?dl=0 -O mamute-1.4.0.war
+	unzip mamute-1.4.0.war
+	chmod a+x run.sh
+        # do not run yet as the MySQL cartridge needs to be added, mamute_development db created and 
+	# permissioned using the same USER and PASSWORD as above
+fi
+
+
