@@ -18,7 +18,7 @@ git remote add upstream https://github.com/JamesSullivan/openshift-mamute-quicks
 git pull -s recursive -X theirs upstream master
 ```
 
-3. Read the .openshift/action_hooks/start file carefully and change as appropriate. Need to use a version of mamute-1.4.0.war that includes this pull request https://github.com/caelum/mamute/pull/224. Then push the code to OpenShift. 
+3. Read the `.openshift/action_hooks/start` file carefully and change as appropriate, particlarly the ftp address of the mamute-1.4.0.war file that you want to use. The latest version of mamute-1.4.0.war includes the code needed to be able to bind to OPENSHIFT_DIY_IP. Then push the code to OpenShift. 
 
 ```
 git push
